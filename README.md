@@ -2,7 +2,7 @@
 
 REST API developed with Python 3 (Flask) and Postgres.
 
-## Estrutura
+## Structure
 
 The project was developed following the *application factories* design pattern and some *twelve-factor app* practices, being:
 
