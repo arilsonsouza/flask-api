@@ -36,7 +36,7 @@ def store_a_user():
     try:
         user.save()
         result = user_schema.dump(user)
-        return success_response(content=None, status_code=201, message=f'User {user.username} registered successfully')
+        return success_response(content=None, status_code=201, message=f'User {user.username} was successfully registered')
     except BaseException as e:
         return error_response(status_code=422, message='Unable to register user')
 
