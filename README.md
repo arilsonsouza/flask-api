@@ -90,9 +90,11 @@ After installing the above requirements:
      * `Export SECRET_KEY = "knoctvk42n&d5dyugoa114_mqf*mmbb%loozu==u@j%qsvq%qh"`
      * But don't use this one, generate a new one here: https://djecrety.ir/
      * And save it in a safe place
-5. Install project dependencies: `pip install -r requirements.txt` or `make install`
-6. Apply database migrations: `python manager.py db upgrade` or `make db_upgrade`
-7. Run application: `python manager.py run` or `make run`
+5. Create python virtualenv `python3 -m venv venv`
+6. Activate virtualenv `source venv/bin/activate`
+7. Install project dependencies: `pip install -r requirements.txt` or `make install`
+8. Apply database migrations: `python manager.py db upgrade` or `make db_upgrade`
+9. Run application: `python manager.py run` or `make run`
   
 ## Application
 
