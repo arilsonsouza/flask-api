@@ -62,6 +62,7 @@ class BaseModel(db.Model):
     @staticmethod
     def paginate(query, page, per_page, endpoint, model_schema, **kwargs):
         resources = query.paginate(page, per_page, False)
+
         data = {
             'items': model_schema.dump(resources.items),
             '_meta': {

@@ -15,13 +15,15 @@ def success_response(content = [], status_code=200, message=None, success=True):
     response.status_code = status_code
     return response
 
-def error_response(status_code, message=None):
+def error_response(status_code, message=''):
     payload = {        
         'error': str(status_code) + ' ' + HTTP_STATUS_CODES.get(status_code, 'Unknown error')
     }
 
-    if message:
-        payload['message'] = message
+    if isinstance(message, str):
+        message = [message if message else 'There was an error in your request.']
+    
+    payload['message'] = [message]
     
     response = jsonify(payload)
     response.status_code = status_code
