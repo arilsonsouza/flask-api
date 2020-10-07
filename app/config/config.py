@@ -11,6 +11,8 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY')
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
     UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER', 'static')
+    PER_PAGE = os.environ.get('PER_PAGE', 10)
+    MAX_ITEMS_PER_PAGE = os.environ.get('MAX_ITEMS_PER_PAGE', 100)
 
 class DevelopmentConfig(Config):
     ENV = 'development'

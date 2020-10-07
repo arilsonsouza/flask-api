@@ -1,4 +1,4 @@
-from flask import jsonify, make_response, url_for
+from flask import jsonify, make_response
 from werkzeug.exceptions import HTTPException
 from werkzeug.http import HTTP_STATUS_CODES
 
@@ -36,20 +36,8 @@ def error_handler(e):
     
     return make_response(jsonify(error=error), code)
 
-def paginate(query, page, per_page, endpoint, model_schema, **kwargs):
-        resources = query.paginate(page, per_page, False)
-        print(resources.total)
-        data = {
-            'items': model_schema.dump(resources.items),
-            '_meta': {
-                'page': page,
-                'per_page': per_page,
-                'total_pages': resources.pages,
-                'total_items': resources.total
-            },
-            '_links': {
-                'self': url_for(endpoint, page=page, per_page=per_page, **kwargs),
-				'next': url_for(endpoint, page=page + 1, per_page=per_page, **kwargs) if resources.has_next else None,
-				'prev': url_for(endpoint, page=page - 1, per_page=per_page, **kwargs) if resources.has_prev else None
-            }
-        }
+def get_request_page(request):
+    return request.args.get('page', 1, type=int)
+    
+def get_items_per_page(request, current_app):
+    return min(request.args.get('per_page', int(current_app.config['PER_PAGE']), type=int), int(current_app.config['MAX_ITEMS_PER_PAGE']))

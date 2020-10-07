@@ -1,10 +1,10 @@
 from datetime import timedelta
 
-from flask import request
+from flask import request, current_app
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from sqlalchemy import or_
 
-from app.api.utils import success_response, error_response
+from app.api.utils import success_response, error_response, get_items_per_page, get_request_page
 from app.api.v1.main import api_v1
 from app.api.models import User
 from app.api.v1.user.serializer import user_schema, users_schema
@@ -13,7 +13,10 @@ from app.ext.db import db
 @api_v1.route('/users', methods=['GET'])
 @jwt_required
 def get_all_users():
-    users = User.paginate(User.query.order_by(User.username.asc()), 1, 10, 'api_v1.get_all_users', users_schema)
+    page = get_request_page(request)
+    per_page = get_items_per_page(request, current_app)
+
+    users = User.paginate(User.query.order_by(User.username.asc()), page, per_page, 'api_v1.get_all_users', users_schema)
     return success_response(users or [])
 
 @api_v1.route('/users', methods=['POST'])

@@ -59,11 +59,6 @@ class BaseModel(db.Model):
         if commit:
             db.session.commit()     
 
-    def __repr__(self):
-        values = ', '.join("%s=%r" % (n, getattr(self, n)) for n in self.__table__.c.keys() if n not in self._hidden_fields)
-        return "%s(%s)" % (self.__class__.__name__, values)
-
-class PaginatedAPIMixin(object):
     @staticmethod
     def paginate(query, page, per_page, endpoint, model_schema, **kwargs):
         resources = query.paginate(page, per_page, False)
@@ -83,7 +78,11 @@ class PaginatedAPIMixin(object):
         }
         return data
 
-class User(PaginatedAPIMixin, BaseModel):
+    def __repr__(self):
+        values = ', '.join("%s=%r" % (n, getattr(self, n)) for n in self.__table__.c.keys() if n not in self._hidden_fields)
+        return "%s(%s)" % (self.__class__.__name__, values)
+
+class User(BaseModel):
     __abstract__ = False
     __tablename__ = 'users'
     _hidden_fields = ['created_at', 'updated_at', 'password']
