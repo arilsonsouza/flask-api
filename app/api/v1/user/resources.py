@@ -29,8 +29,7 @@ def get_all_users():
 def store_a_user():
     
     try:        
-        data = user_schema.load(request.json or {})
-        return data
+        data = user_schema.load(request.json or {})        
         
         email = data['email']
         username = data['username']
