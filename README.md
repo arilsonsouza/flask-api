@@ -71,30 +71,20 @@ The application can be run in the following environments: *development*, *produc
 
 Each environment has its own database, install Postgres and create a database, with user/password, according to .env.example
 
-To choose any of the environments, export it to the OS environment variables: `export ENV_APP = "devlopment"`, to activate the environment from *development*, `export ENV_APP ="production"` to *production*, etc.
-
 ## Settings
 
 **Requirements:**
 
 * Git - https://git-scm.com/downloads
 * Python - https://www.python.org
-* PostgreSQL - https://www.postgresql.org
+* Docker - https://www.docker.com/
 
 After installing the above requirements:
 
 1. Clone this repository: `git clone https://github.com/arilsonsouza/flask-api.git`
 2. Go to the directory: `cd flask-api/`
-3. Export the *development* environment: `export ENV_APP = "development"`
-4. Generate a *SECRET_KEY* and export it, example:
-     * `Export SECRET_KEY = "knoctvk42n&d5dyugoa114_mqf*mmbb%loozu==u@j%qsvq%qh"`
-     * But don't use this one, generate a new one here: https://djecrety.ir/
-     * And save it in a safe place
-5. Create python virtualenv `python3 -m venv venv`
-6. Activate virtualenv `source venv/bin/activate`
-7. Install project dependencies: `pip install -r requirements.txt` or `make install`
-8. Apply database migrations: `python manager.py db upgrade` or `make db_upgrade`
-9. Run application: `python manager.py run` or `make run`
+3. Build the new image and spin up the containers `docker-compose up -d --build`
+4. Setup database `docker-compose exec web python manager.py db upgrade`
   
 ## Application
 
